@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script> -->
+        <link rel="stylesheet" type="text/css" href="css/page.css">
+    </head>
+    <body>
+        <center>
+            <div id="problem" style="margin: 10px">
+                <div>
+                    <label id="number1" > {{ number1 }} </label>
+                    <label id="operator" > {{ operator }} </label>
+                    <label id="number2" > {{ number2 }} </label>
+                    <label id="equal" > = </label>
+                    <input type="number" id="result"/>
+                    <button id="check" v-on:click="check">檢查答案</button>
+                    <button id="next" v-on:click="next" style="display: none">下一題</button>
+                </div>
+                <div id="correct" style="margin: 10px; display: none">
+                    <span style="color: green; font-size: 30pt">答對了</span>
+                </div>
+                <div id="wrong" style="margin: 10px; display: none">
+                    <span style="color: red; font-size: 30pt">答錯了</span>
+                </div>
+                <div id="hint_add" style="margin: 10px; display: none">
+                    <div>
+                        <span style="font-size: 20pt">提示:"先寫正負"、"同類相加"、"異類相減"</span>
+                    </div>
+                </div>
+                <div id="hint_sub" style="margin: 10px; display: none">
+                    <!-- <label> {{ number1 }} </label> -->
+                    <!-- <label> {{ operator }} </label> -->
+                    <!-- <label> {{ number2 }} </label> -->
+                    <!-- <label> = </label> -->
+                    <div>
+                        <span style="font-size: 20pt">提示:減法改成"加"相反數</span>
+                    </div>
+                </div>
+            </div>
+        </center>
+        <script src="js/main.js"></script>
+    </body>
+</html>

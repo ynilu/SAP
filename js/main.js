@@ -34,11 +34,12 @@ var problem = new Vue({
                 console.log(result);
                 $('#correct').css('display', 'block');
                 $('#wrong').css('display', 'none');
-                if(round >= problems.length)
+                $('#check').css('display', 'none');
+                if(round == problems.length - 1)
                 {
+                    $('#finish').css('display', 'block');
                     return;
                 }
-                $('#check').css('display', 'none');
                 $('#next').css('display', 'inline-block');
             }
             else

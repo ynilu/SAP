@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    script(src='https://npmcdn.com/vue/dist/vue.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    // <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    link(rel='stylesheet', type='text/css', href='stylesheets/page.css')
+  body
+    center
+      #problem(style='margin: 10px')
+        div
+          label#number1  {{ number1 }}
+          label#operator  {{ operator }}
+          label#number2  {{ number2 }}
+          label#equal
+          input#result(type='number')
+          button#check(v-on:click='check') 檢查答案
+          button#next(v-on:click='next', style='display: none') 下一題
+        #correct(style='margin: 10px; display: none')
+          span(style='color: green; font-size: 30pt') 答對了
+        #wrong(style='margin: 10px; display: none')
+          span(style='color: red; font-size: 30pt') 答錯了
+        #hint_add(style='margin: 10px; display: none')
+          div
+            span(style='font-size: 20pt') 提示:"先寫正負"、"同類相加"、"異類相減"
+        #finish(style='margin: 10px; display: none')
+          div
+            span(style='font-size: 20pt') 恭喜你完成所有的題目了
+        #hint_sub(style='margin: 10px; display: none')
+          // <label> {{ number1 }} </label>
+          // <label> {{ operator }} </label>
+          // <label> {{ number2 }} </label>
+          // <label> = </label>
+          div
+            span(style='font-size: 20pt') 提示:減法改成"加"相反數
+    script(src='javascripts/main.js')

@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  #manage-vue.container
+    .row
+      .col-lg-12.margin-tb
+        .pull-left
+          h2 使用者管理
+        .pull-right
+          button.btn.btn-success(type='button', data-toggle='modal', data-target='#create-user')
+            | 新建使用者
+    // Item Listing
+    table.table.table-bordered
+      tr
+        th 使用者名稱
+        th Description
+        th(width='200px') Action
+      tr(v-for='item in items')
+        td @{{ item.username }}
+        td @{{ item.password }}
+        td
+          button.btn.btn-primary(@click.prevent='editItem(item)') Edit
+          button.btn.btn-danger(@click.prevent='deleteItem(item)') Delete
+    // Pagination
+    nav
+      ul.pagination
+        li(v-if='pagination.current_page > 1')
+          a(href='#', aria-label='Previous', @click.prevent='changePage(pagination.current_page - 1)')
+            span(aria-hidden='true') «
+        li(v-for='page in pagesNumber', v-bind:class="[ page == isActived ? 'active' : '']")
+          a(href='#', @click.prevent='changePage(page)') @{{ page }}
+        li(v-if='pagination.current_page < pagination.last_page')
+          a(href='#', aria-label='Next', @click.prevent='changePage(pagination.current_page + 1)')
+            span(aria-hidden='true') »
+    // Create Item Modal
+    #create-user.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title 新建使用者
+          .modal-body
+            form(method='POST', enctype='multipart/form-data', v-on:submit.prevent='createUser')
+              .form-group
+                label(for='username') 使用者名稱:
+                input.form-control(type='text', name='username', v-model='newUser.username')
+                span.error.text-danger(v-if="formErrors['message']") {{ formErrors['message'] }}
+              .form-group
+                label(for='password') 使用者密碼:
+                input.form-control.password(type='password', name='password', v-model='newUser.password')
+                // span.error.text-danger(v-if="formErrors['message']") @{{ formErrors['message'] }}
+              .form-group
+                button.btn.btn-success(type='submit') 送出
+    // Edit Item Modal
+    #edit-item.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Edit Item
+          .modal-body
+            form(method='POST', enctype='multipart/form-data', v-on:submit.prevent='updateItem(fillItem.id)')
+              .form-group
+                label(for='username') 使用者名稱:
+                input.form-control(type='text', name='username', v-model='fillItem.username')
+                span.error.text-danger(v-if="formErrorsUpdate['username']") @{{ formErrorsUpdate['username'] }}
+              .form-group
+                label(for='password') 使用者密碼:
+                textarea.form-control(name='password', v-model='fillItem.password')
+                span.error.text-danger(v-if="formErrorsUpdate['password']") @{{ formErrorsUpdate['password'] }}
+              .form-group
+                button.btn.btn-success(type='submit') Submit
+
+  script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+  script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js')
+  script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js')
+  link(href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css', rel='stylesheet')
+  script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js')
+  script(type='text/javascript', src='https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js')
+  script(type='text/javascript', src='/javascripts/users.js')
+
